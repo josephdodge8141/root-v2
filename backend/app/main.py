@@ -1,40 +1,27 @@
-from app.core.config import settings
-from app.core.database import engine
-from app.core.deps import DatabaseHealthCheck
-from app.models import base  # Import all models to ensure they're registered
-from fastapi import Depends, FastAPI
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-
-# Create database tables
-base.Base.metadata.create_all(bind=engine)
+from app.core import database
+from app.api import users, auth, items
 
 app = FastAPI(
-    title=settings.PROJECT_NAME,
-    version=settings.VERSION,
-    description="LLM-powered documentation backend API",
+    title="Backend API",
+    version="1.0.0",
+    description="API for the backend service",
+    docs_url="/docs"
 )
 
-# Configure CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=settings.ALLOWED_HOSTS,
+    allow_origins=["http://localhost:3000", "http://localhost:8000"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-@app.get("/")
-async def root():
-    return {"message": "LLM Documentation API", "version": settings.VERSION}
+app.include_router(users.router)
+app.include_router(auth.auth_router)
+app.include_router(items.router)
 
-@app.get("/health")
-async def health_check(db_health: DatabaseHealthCheck = Depends()):
-    """Enhanced health check with database status"""
-    db_status = db_health.get_status()
-    
-    return {
-        "status": "healthy" if db_status["status"] == "healthy" else "unhealthy",
-        "version": settings.VERSION,
-        "environment": settings.ENVIRONMENT,
-        **db_status
-    }
+@app.get("/")
+def root():
+    return {"message": "Backend API", "version": "1.0.0"}

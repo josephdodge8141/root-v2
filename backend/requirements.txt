@@ -15,11 +15,16 @@ redis==5.0.1
 
 # Authentication and security
 python-jose[cryptography]==3.3.0
-passlib[bcrypt]==1.7.4
+passlib==1.7.4
+bcrypt==4.0.1
 python-multipart==0.0.6
 
 # HTTP client for integrations
 httpx==0.25.2
+
+# Environment and utilities
+python-dotenv==1.0.0
+email-validator==2.1.0
 
 # Development and testing
 pytest==7.4.3
