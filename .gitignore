@@ -210,3 +210,8 @@ __marimo__/
 # JavaScript
 
 .DS_Store
+
+
+# kiro
+
+.kiro/
