@@ -1,6 +1,6 @@
 # Implementation Plan
 
-- [x] 1. Set up project foundation and core infrastructure
+- [ ] 1. Set up project foundation and core infrastructure
 
   - Create FastAPI application structure with proper directory organization
   - Configure Docker and docker-compose for development environment
@@ -8,7 +8,7 @@
   - Implement Alembic for database migrations
   - _Requirements: 1.1, 1.3, 1.5_
 
-- [ ] 2. Implement core database models and multi-tenant architecture
+- [-] 2. Implement core database models and multi-tenant architecture
 - [ ] 2.1 Create base model and database utilities
 
   - Write BaseModel class with common fields (id, created_at, updated_at)
